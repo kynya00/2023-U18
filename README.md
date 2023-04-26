@@ -1,5 +1,6 @@
 # 2023-U18
-## Challenge Setups
+Please organize the challenges into the folders with their own folder structure. If there is no classification on the challenge you've created, please consider to put it into a Misc or create it's own group by sipmly creating the folder.
+## Round - 1 
 ### ChallengeName and type
 - Description
 - Requirements

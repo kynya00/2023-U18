@@ -17,9 +17,9 @@ TODO LIST:
 ## Organizers and sponsors
 Haruulzangi U18 is public CTF competition for Mongolian high school students/pupils. We have organized Haruulzangi U18 2023 with support of following amazing organizations and people who are passionate about cybersecurity not in Mongolia, but also in the world.
 ### Organizers
-- [MNCER/CC](https://mncert.org)
+- [MNCERT/CC](https://mncert.org)
 - [Unitel Information Security Team](https://www.unitel.mn/unitel/)
-- [MUST-SICT Computer&Communication Security Club](https://www.facebook.com/CCSclub2023)
+- [MUST-SICT, Computer&Communication Security Club](https://www.facebook.com/CCSclub2023)
 - [Zolboobayar](https://github.com/zolbooo)
 
 ### Sponsors:

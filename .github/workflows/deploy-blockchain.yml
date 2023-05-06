@@ -3,8 +3,6 @@ on:
   push:
     branches:
       - round-1
-env:
-  FOUNDRY_PROFILE: ci
 jobs:
   deploy-blockchain:
     strategy:

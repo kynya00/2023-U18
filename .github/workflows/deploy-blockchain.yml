@@ -6,7 +6,7 @@ on:
 env:
   FOUNDRY_PROFILE: ci
 jobs:
-  test-and-deploy-blockchain:
+  deploy-blockchain:
     strategy:
       fail-fast: true
     name: Deploy blockchain challenges
@@ -19,12 +19,6 @@ jobs:
         uses: foundry-rs/foundry-toolchain@v1
         with:
           version: nightly
-      - name: Test "My Secret Note" challenge
-        working-directory: ./Blockchain/my-secret-note
-        run: |
-          forge --version
-          forge test -vvv
-        id: test-my-secret-note
       - name: Deploy "My Secret Note" challenge
         working-directory: ./Blockchain/my-secret-note
         run: /

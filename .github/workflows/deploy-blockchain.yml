@@ -9,7 +9,7 @@ jobs:
   test-and-deploy-blockchain:
     strategy:
       fail-fast: true
-    name: Test and deploy blockchain challenges
+    name: Deploy blockchain challenges
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -19,15 +19,10 @@ jobs:
         uses: foundry-rs/foundry-toolchain@v1
         with:
           version: nightly
-      - name: Build "My Secret Note" challenge
+      - name: Test "My Secret Note" challenge
         working-directory: ./Blockchain/my-secret-note
         run: |
           forge --version
-          forge build --sizes
-        id: build-my-secret-note
-      - name: Build "My Secret Note" challenge
-        working-directory: ./Blockchain/my-secret-note
-        run: |
           forge test -vvv
         id: test-my-secret-note
       - name: Deploy "My Secret Note" challenge

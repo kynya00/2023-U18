@@ -13,7 +13,7 @@ const zFaucetRequest = z.strictObject({
   }),
 });
 export async function POST(request: Request) {
-  const body = request.json();
+  const body = await request.json();
 
   let address: string;
   try {
@@ -26,9 +26,13 @@ export async function POST(request: Request) {
     );
   }
 
-  const result = await wallet.sendTransaction({
-    to: address,
-    value: ethers.parseEther("1"),
-  });
-  return NextResponse.json({ txHash: result.hash });
+  try {
+    const result = await wallet.sendTransaction({
+      to: address,
+      value: ethers.parseEther("1"),
+    });
+    return NextResponse.json({ txHash: result.hash });
+  } catch (e) {
+    return new NextResponse((e as Error).message, { status: 500 });
+  }
 }

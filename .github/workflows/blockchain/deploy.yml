@@ -1,5 +1,8 @@
 name: deploy-blockchain
-on: workflow_dispatch
+on:
+  push:
+    branches:
+      - round-1
 env:
   FOUNDRY_PROFILE: ci
 jobs:

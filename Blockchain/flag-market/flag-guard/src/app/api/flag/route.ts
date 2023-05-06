@@ -3,7 +3,9 @@ import { NextResponse } from "next/server";
 
 import { env } from "@/env";
 
-const digest = ethers.hashMessage("flag-market-challenge");
+export const challenge = "flag-market-challenge";
+
+const digest = ethers.hashMessage(challenge);
 const provider = new ethers.JsonRpcProvider(env.RPC_URL);
 const contract = new ethers.Contract(
   env.CONTRACT_ADDRESS,

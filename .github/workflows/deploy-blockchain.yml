@@ -106,6 +106,7 @@ jobs:
       # Who Are You
       - name: Build dotenv file for "Who Are You" challenge
         run: echo FLAG=${{ vars.BLOCKCHAIN_WHO_ARE_YOU_FLAG }} > .env
+        working-directory: Blockchain/who-are-you
       - name: Build "Who Are You" flag guard image
         run: docker build . --file Dockerfile --tag ghcr.io/${{ github.repository_owner }}/who-are-you:latest --label "runnumber=${GITHUB_RUN_ID}"
         working-directory: Blockchain/who-are-you

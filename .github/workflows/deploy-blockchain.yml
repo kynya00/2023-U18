@@ -72,7 +72,10 @@ jobs:
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
       # Bake Danuki
       - name: Build dotenv file for "Bake Danuki" flag guard
-        run: echo RPC_URL=${{ vars.BLOCKCHAIN_RPC_URL }} > .env
+        run: |
+          echo RPC_URL=${{ vars.BLOCKCHAIN_RPC_URL }} > .env
+          echo CONTRACT_ADDRESS=${{ vars.BLOCKCHAIN_BAKE_DANUKI_ADDRESS }} >> .env
+          echo FLAG=${{ vars.BLOCKCHAIN_BAKE_DANUKI_FLAG }} >> .env
         working-directory: Blockchain/bake-danuki/flag-guard
       - name: Build "Bake Danuki" flag guard image
         run: docker build . --file Dockerfile --tag ghcr.io/${{ github.repository_owner }}/bake-danuki-flag-guard:latest --label "runnumber=${GITHUB_RUN_ID}"
@@ -81,13 +84,27 @@ jobs:
         run: docker push ghcr.io/${{ github.repository_owner }}/bake-danuki-flag-guard:latest
       # Flag Market
       - name: Build dotenv file for "Flag Market" flag guard
-        run: echo RPC_URL=${{ vars.BLOCKCHAIN_RPC_URL }} > .env
+        run: |
+          echo RPC_URL=${{ vars.BLOCKCHAIN_RPC_URL }} > .env
+          echo CONTRACT_ADDRESS=${{ vars.BLOCKCHAIN_FLAG_MARKET_ADDRESS }} >> .env
+          echo FLAG=${{ vars.BLOCKCHAIN_FLAG_MARKET_FLAG }} >> .env
         working-directory: Blockchain/flag-market/flag-guard
       - name: Build "Flag Market" flag guard image
         run: docker build . --file Dockerfile --tag ghcr.io/${{ github.repository_owner }}/flag-market-guard:latest --label "runnumber=${GITHUB_RUN_ID}"
         working-directory: Blockchain/flag-market/flag-guard
       - name: Push "Flag Market" flag guard image
         run: docker push ghcr.io/${{ github.repository_owner }}/flag-market-guard:latest
+      # Faucet
+      - name: Build dotenv file for faucet
+        run: |
+          echo RPC_URL=${{ vars.BLOCKCHAIN_RPC_URL }} > .env
+          echo FAUCET_PRIVATE_KEY=${{ secrets.BLOCKCHAIN_FAUCET_PRIVATE_KEY }} >> .env
+        working-directory: Blockchain/faucet
+      - name: Build faucet image
+        run: docker build . --file Dockerfile --tag ghcr.io/${{ github.repository_owner }}/faucet:latest --label "runnumber=${GITHUB_RUN_ID}"
+        working-directory: Blockchain/faucet
+      - name: Push faucet image
+        run: docker push ghcr.io/${{ github.repository_owner }}/faucet:latest
       # Who Are You
       - name: Build "Who Are You" flag guard image
         run: docker build . --file Dockerfile --tag ghcr.io/${{ github.repository_owner }}/who-are-you:latest --label "runnumber=${GITHUB_RUN_ID}"

@@ -60,3 +60,38 @@ jobs:
       - name: Deploy "Flag Market" challenge
         working-directory: ./Blockchain/flag-market/contract
         run: forge create --rpc-url ${{ vars.BLOCKCHAIN_RPC_URL }} --private-key ${{ secrets.BLOCKCHAIN_CONTRACT_DEPLOYER_PRIVATE_KEY }} src/FlagMarket.sol:FlagMarket
+  build-web-services:
+    name: Build web services
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v3
+      - name: Log in to registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
+      # Bake Danuki
+      - name: Build dotenv file for "Bake Danuki" flag guard
+        run: echo RPC_URL=${{ vars.BLOCKCHAIN_RPC_URL }} > .env
+        working-directory: Blockchain/bake-danuki/flag-guard
+      - name: Build "Bake Danuki" flag guard image
+        run: docker build . --file Dockerfile --tag ghcr.io/${{ github.repository_owner }}/bake-danuki-flag-guard:latest --label "runnumber=${GITHUB_RUN_ID}"
+        working-directory: Blockchain/bake-danuki/flag-guard
+      - name: Push "Bake Danuki" flag guard image
+        run: docker push ghcr.io/${{ github.repository_owner }}/bake-danuki-flag-guard:latest
+      # Flag Market
+      - name: Build dotenv file for "Flag Market" flag guard
+        run: echo RPC_URL=${{ vars.BLOCKCHAIN_RPC_URL }} > .env
+        working-directory: Blockchain/flag-market/flag-guard
+      - name: Build "Flag Market" flag guard image
+        run: docker build . --file Dockerfile --tag ghcr.io/${{ github.repository_owner }}/flag-market-guard:latest --label "runnumber=${GITHUB_RUN_ID}"
+        working-directory: Blockchain/flag-market/flag-guard
+      - name: Push "Flag Market" flag guard image
+        run: docker push ghcr.io/${{ github.repository_owner }}/flag-market-guard:latest
+      # Who Are You
+        working-directory: Blockchain/who-are-you
+      - name: Build "Who Are You" flag guard image
+        run: docker build . --file Dockerfile --tag ghcr.io/${{ github.repository_owner }}/who-are-you:latest --label "runnumber=${GITHUB_RUN_ID}"
+        working-directory: Blockchain/who-are-you
+      - name: Push "Who Are You" flag guard image
+        run: docker push ghcr.io/${{ github.repository_owner }}/who-are-you:latest

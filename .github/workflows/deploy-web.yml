@@ -15,6 +15,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Build dotenv file
         run: echo FLAG=${{ vars.WEB_MASSIGNMENT_FLAG }} > .env
+        working-directory: Web/massignment
       - name: Build image
         run: docker build . --file Dockerfile --tag ghcr.io/${{ github.repository_owner }}/massignment:latest --label "runnumber=${GITHUB_RUN_ID}"
         working-directory: Web/massignment

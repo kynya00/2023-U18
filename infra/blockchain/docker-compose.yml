@@ -4,6 +4,7 @@ services:
     image: ghcr.io/haruulzangi/u18-eth-chain:latest
     volumes:
       - "./data/state.json:/app/data/state.json:rw"
+    networks: [traefik_proxy]
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.eth-chain.rule=Host(`eth.challenge.haruulzangi.mn`)"
@@ -11,3 +12,6 @@ services:
       - "traefik.http.routers.eth-chain.tls.certresolver=resolver"
       - "traefik.http.routers.eth-chain.middlewares=whoami-https"
       - "traefik.http.middlewares.eth-chain-https.redirectscheme.scheme=https"
+networks:
+  traefik_proxy:
+    external: true

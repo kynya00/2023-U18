@@ -37,4 +37,14 @@ jobs:
         working-directory: ./Blockchain/bake-danuki/contract
         run: /
           forge create --rpc-url https://eth.u18.haruulzangi.mn --private-key ${{ secrets.BLOCKCHAIN_CONTRACT_DEPLOYER_PRIVATE_KEY }} src/BakeDanuki.sol:BakeDanuki
+      - name: Test "Flag Market" challenge
+        working-directory: ./Blockchain/flag-market/contract
+        run: |
+          forge --version
+          forge test -vvv
+        id: test-my-secret-note
+      - name: Deploy "Flag Market" challenge
+        working-directory: ./Blockchain/flag-market/contract
+        run: /
+          forge create --rpc-url https://eth.u18.haruulzangi.mn --private-key ${{ secrets.BLOCKCHAIN_CONTRACT_DEPLOYER_PRIVATE_KEY }} src/FlagMarket.sol:FlagMarket
 

@@ -19,14 +19,7 @@ export default function RegisterPage() {
           </div>
           <TextInput id="password" type="password" name="password" required />
         </div>
-        <TextInput
-          hidden
-          className="hidden"
-          name="role"
-          type="text"
-          value="user"
-          readOnly
-        />
+        <TextInput hidden name="role" type="hidden" value="user" readOnly />
         <Button type="submit">Submit</Button>
       </form>
     </main>

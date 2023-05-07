@@ -40,3 +40,6 @@ services:
       - "traefik.http.routers.eth-faucet.tls.certresolver=resolver"
       - "traefik.http.routers.eth-faucet.middlewares=whoami-https"
       - "traefik.http.middlewares.eth-faucet-https.redirectscheme.scheme=https"
+networks:
+  traefik_proxy:
+    external: true

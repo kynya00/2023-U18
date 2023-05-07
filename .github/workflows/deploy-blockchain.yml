@@ -32,7 +32,7 @@ jobs:
         run: |
           forge --version
           forge test -vvv
-        id: test-my-secret-note
+        id: test-bake-danuki
       - name: Deploy "Bake Danuki" challenge
         working-directory: ./Blockchain/bake-danuki/contract
         run: /
@@ -42,7 +42,7 @@ jobs:
         run: |
           forge --version
           forge test -vvv
-        id: test-my-secret-note
+        id: test-flag-market
       - name: Deploy "Flag Market" challenge
         working-directory: ./Blockchain/flag-market/contract
         run: /

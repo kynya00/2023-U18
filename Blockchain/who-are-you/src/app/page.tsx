@@ -1,4 +1,4 @@
-import { challenge } from "./api/flag/route";
+import { challenge } from "@/env";
 
 import { FlagRequestWidget } from "@/components/FlagRequestWidget";
 

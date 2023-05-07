@@ -1,9 +1,7 @@
 import { ethers } from "ethers";
 import { NextResponse } from "next/server";
 
-import { env } from "@/env";
-
-export const challenge = "HaruulZangiU18";
+import { challenge, env } from "@/env";
 
 const digest = ethers.hashMessage(challenge);
 

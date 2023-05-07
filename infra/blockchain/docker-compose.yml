@@ -1,6 +1,13 @@
 version: "3.8"
 services:
   chain:
-    build: .
+    image: ghcr.io/haruulzangi/u18-eth-chain:latest
     volumes:
       - "./data/state.json:/app/data/state.json:rw"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.eth-chain.rule=Host(`eth.challenge.haruulzangi.mn`)"
+      - "traefik.http.routers.eth-chain.entrypoints=web,websecure"
+      - "traefik.http.routers.eth-chain.tls.certresolver=resolver"
+      - "traefik.http.routers.eth-chain.middlewares=whoami-https"
+      - "traefik.http.middlewares.eth-chain-https.redirectscheme.scheme=https"

@@ -13,32 +13,25 @@ export async function login(formData: FormData) {
   );
 
   const db = await getDB();
-  const row = await db.get<{ id: string; password: string }>(
+  const user = await db.get<{ id: string; password: string }>(
     "SELECT id, password FROM users WHERE username = ?",
     request.username
   );
-  if (!row) {
+  if (!user) {
     throw Error("Invalid username or password");
   }
 
-  const valid = await argon2.verify(row.password, request.password);
+  const valid = await argon2.verify(user.password, request.password);
   if (!valid) {
     throw Error("Invalid username or password");
   }
 
-  if (argon2.needsRehash(row.password)) {
+  if (argon2.needsRehash(user.password)) {
     await db.run(
       "UPDATE users SET password = ? WHERE username = ?",
       await argon2.hash(request.password),
       request.username
     );
   }
-  // @ts-ignore
-  cookies().set({
-    name: "auth",
-    value: row.id,
-    httpOnly: true,
-    sameSite: "strict",
-  });
-  redirect("/dashboard");
+  redirect(`/dashboard/${user.id}`);
 }

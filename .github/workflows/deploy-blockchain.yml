@@ -25,8 +25,7 @@ jobs:
         id: test-my-secret-note
       - name: Deploy "My Secret Note" challenge
         working-directory: ./Blockchain/my-secret-note
-        run: /
-          forge create --rpc-url ${{ env.BLOCKCHAIN_RPC_URL }} --private-key ${{ secrets.BLOCKCHAIN_CONTRACT_DEPLOYER_PRIVATE_KEY }} src/Notebin.sol:Notebin
+        run: forge create --rpc-url ${{ vars.BLOCKCHAIN_RPC_URL }} --private-key ${{ secrets.BLOCKCHAIN_CONTRACT_DEPLOYER_PRIVATE_KEY }} src/Notebin.sol:Notebin
       - name: Test "Bake Danuki" challenge
         working-directory: ./Blockchain/bake-danuki/contract
         run: |
@@ -35,8 +34,7 @@ jobs:
         id: test-bake-danuki
       - name: Deploy "Bake Danuki" challenge
         working-directory: ./Blockchain/bake-danuki/contract
-        run: /
-          forge create --rpc-url ${{ env.BLOCKCHAIN_RPC_URL }} --private-key ${{ secrets.BLOCKCHAIN_CONTRACT_DEPLOYER_PRIVATE_KEY }} src/BakeDanuki.sol:BakeDanuki
+        run: forge create --rpc-url ${{ vars.BLOCKCHAIN_RPC_URL }} --private-key ${{ secrets.BLOCKCHAIN_CONTRACT_DEPLOYER_PRIVATE_KEY }} src/BakeDanuki.sol:BakeDanuki
       - name: Test "Flag Market" challenge
         working-directory: ./Blockchain/flag-market/contract
         run: |
@@ -45,5 +43,4 @@ jobs:
         id: test-flag-market
       - name: Deploy "Flag Market" challenge
         working-directory: ./Blockchain/flag-market/contract
-        run: /
-          forge create --rpc-url ${{ env.BLOCKCHAIN_RPC_URL }} --private-key ${{ secrets.BLOCKCHAIN_CONTRACT_DEPLOYER_PRIVATE_KEY }} src/FlagMarket.sol:FlagMarket
+        run: forge create --rpc-url ${{ vars.BLOCKCHAIN_RPC_URL }} --private-key ${{ secrets.BLOCKCHAIN_CONTRACT_DEPLOYER_PRIVATE_KEY }} src/FlagMarket.sol:FlagMarket

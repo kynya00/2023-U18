@@ -3,7 +3,9 @@ services:
   massignment:
     image: ghcr.io/haruulzangi/massignment:latest
     volumes:
-      - ./massignment/data/data.sqlite:/app/data.sqlite:rw
+      - ./massignment/data:/data:rw
+    environment:
+      - DB_DIR=/data
     networks: [traefik_proxy]
     labels:
       - "traefik.enable=true"

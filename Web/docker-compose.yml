@@ -2,6 +2,8 @@ version: "3.8"
 services:
   massignment:
     image: ghcr.io/haruulzangi/massignment:latest
+    volumes:
+      - ./massignment/data/data.sqlite:/app/data.sqlite:rw
     networks: [traefik_proxy]
     labels:
       - "traefik.enable=true"

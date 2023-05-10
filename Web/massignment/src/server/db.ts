@@ -1,11 +1,14 @@
+import path from "path";
 import sqlite3 from "sqlite3";
 import { Database, open } from "sqlite";
+
+import { env } from "@/env";
 
 let db: Database;
 export async function getDB() {
   if (!db) {
     db = await open({
-      filename: "data.sqlite",
+      filename: path.join(env.DB_DIR ?? process.cwd(), "data.sqlite"),
       driver: sqlite3.Database,
     });
     try {

@@ -2,9 +2,16 @@ version: "3.8"
 services:
   watchtower:
     image: containrrr/watchtower
+    networks:
+      - bridge
     environment:
       DOCKER_CONFIG: /config
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /etc/watchtower/config/:/config/
     command: --interval 120
+networks:
+  bridge:
+    driver: bridge
+    driver_opts:
+      com.docker.network.driver.mtu: 1400

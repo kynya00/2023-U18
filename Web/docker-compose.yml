@@ -1,0 +1,19 @@
+version: "3.8"
+services:
+  massignment:
+    image: ghcr.io/haruulzangi/massignment:latest
+    volumes:
+      - ./massignment/data:/data:rw
+    environment:
+      - DB_DIR=/data
+    networks: [traefik_proxy]
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.massignment.rule=Host(`massignment.challenge.haruulzangi.mn`)"
+      - "traefik.http.routers.massignment.entrypoints=web,websecure"
+      - "traefik.http.routers.massignment.tls.certresolver=resolver"
+      - "traefik.http.routers.massignment.middlewares=whoami-https"
+      - "traefik.http.middlewares.massignment-https.redirectscheme.scheme=https"
+networks:
+  traefik_proxy:
+    external: true

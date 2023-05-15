@@ -1,0 +1,57 @@
+version: "3.8"
+services:
+  chain:
+    image: ghcr.io/haruulzangi/u18-eth-chain:latest
+    volumes:
+      - "./data/state.json:/app/data/state.json:rw"
+    networks: [traefik_proxy]
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.eth-chain.rule=Host(`eth.challenge.haruulzangi.mn`)"
+      - "traefik.http.routers.eth-chain.entrypoints=web,websecure"
+      - "traefik.http.routers.eth-chain.tls.certresolver=resolver"
+      - "traefik.http.routers.eth-chain.middlewares=whoami-https"
+      - "traefik.http.middlewares.eth-chain-https.redirectscheme.scheme=https"
+  faucet:
+    image: ghcr.io/haruulzangi/faucet:latest
+    networks: [traefik_proxy]
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.eth-faucet.rule=Host(`eth-faucet.challenge.haruulzangi.mn`)"
+      - "traefik.http.routers.eth-faucet.entrypoints=web,websecure"
+      - "traefik.http.routers.eth-faucet.tls.certresolver=resolver"
+      - "traefik.http.routers.eth-faucet.middlewares=whoami-https"
+      - "traefik.http.middlewares.eth-faucet-https.redirectscheme.scheme=https"
+  bake-danuki-flag-guard:
+    image: ghcr.io/haruulzangi/bake-danuki-flag-guard:latest
+    networks: [traefik_proxy]
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.bake-danuki.rule=Host(`bake-danuki.challenge.haruulzangi.mn`)"
+      - "traefik.http.routers.bake-danuki.entrypoints=web,websecure"
+      - "traefik.http.routers.bake-danuki.tls.certresolver=resolver"
+      - "traefik.http.routers.bake-danuki.middlewares=whoami-https"
+      - "traefik.http.middlewares.bake-danuki-https.redirectscheme.scheme=https"
+  flag-market-guard:
+    image: ghcr.io/haruulzangi/flag-market-guard:latest
+    networks: [traefik_proxy]
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.flag-market.rule=Host(`flag-market.challenge.haruulzangi.mn`)"
+      - "traefik.http.routers.flag-market.entrypoints=web,websecure"
+      - "traefik.http.routers.flag-market.tls.certresolver=resolver"
+      - "traefik.http.routers.flag-market.middlewares=whoami-https"
+      - "traefik.http.middlewares.flag-market-https.redirectscheme.scheme=https"
+  who-are-you:
+    image: ghcr.io/haruulzangi/who-are-you:latest
+    networks: [traefik_proxy]
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.who-are-you.rule=Host(`who-are-you.challenge.haruulzangi.mn`)"
+      - "traefik.http.routers.who-are-you.entrypoints=web,websecure"
+      - "traefik.http.routers.who-are-you.tls.certresolver=resolver"
+      - "traefik.http.routers.who-are-you.middlewares=whoami-https"
+      - "traefik.http.middlewares.who-are-you-https.redirectscheme.scheme=https"
+networks:
+  traefik_proxy:
+    external: true

@@ -25,8 +25,8 @@ export async function POST(request: Request) {
     });
   }
 
-  const hasBoughtFlag = await contract.hasBoughtFlag(address);
-  if (!hasBoughtFlag) {
+  const hasFoundTrail = await contract.hasFoundTrail(address);
+  if (!hasFoundTrail) {
     return new NextResponse("Don't try to fool me!! https://http.cat/403", {
       status: 403,
     });

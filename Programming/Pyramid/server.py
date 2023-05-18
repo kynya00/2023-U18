@@ -73,7 +73,6 @@ def run(prmd: Pyramid) -> None:
   banner()
   for k, v in prmd.triangle.items():
     print(f'[{k}] Pyramid: \n{v["data"]}')
-    print(v["max_path_sum"])
     answer: int = int(input('Please enter, Maximum path sum>'))
     if answer == int(v['max_path_sum']):
       print('[+] Correct')

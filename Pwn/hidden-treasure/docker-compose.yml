@@ -1,0 +1,8 @@
+version: '2.0'
+services:
+  hidden_treasure-declare:
+    build: 
+      context: .
+    ports:
+      - "13331:13331"
+    restart: unless-stopped

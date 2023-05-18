@@ -19,7 +19,7 @@ int main() {
   if (chck != 0){
     puts("[+] The correct secret has been entered :)");
     puts("Treasure: ");
-    system("cat /flag.txt");
+    system("cat /home/ctfuser/flag.txt");
   }
   else {
     puts("[!] Secret is incorrect :(");

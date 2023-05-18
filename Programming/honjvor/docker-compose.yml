@@ -1,0 +1,7 @@
+version: '3.8'
+services:
+  honjvor:
+    build: .
+    restart: always
+    ports:
+      - '7711:7711'

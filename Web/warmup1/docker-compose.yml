@@ -1,0 +1,5 @@
+services:
+  warmup1:
+    build: .
+    ports:
+      - "9292:9292"

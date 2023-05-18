@@ -1,0 +1,12 @@
+body {
+  background-image: url("ubuntu.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: black;
+  color:white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+}

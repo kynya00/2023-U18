@@ -1,0 +1,5 @@
+services:
+  hhe:
+    build: .
+    ports:
+      - "9393:80"

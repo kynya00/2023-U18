@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="box">
+        <h1>Login</h1>
+        <form>
+          <div class="input-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" />
+          </div>
+          <div class="input-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" />
+          </div>
+          <button type="submit">Sign in</button>
+        </form>
+      </div>
+    </div>
+    <script>
+        var flag = "D{81UZH0RB_NM4P0HC_U_TT1_D3P}!!!T"
+        var form = document.querySelector("form");
+        form.addEventListener("submit", function(event) {
+            event.preventDefault();
+  
+            var username = document.querySelector("#username").value;
+            var password = document.querySelector("#password").value;
+
+            var chunks = [];
+            var chunkSize = 7
+
+            for (var i = 0; i < password.length; i += chunkSize) {
+                chunks.push(password.slice(i, i + chunkSize));
+            }
+
+            var reversed = chunks.map(function(chunk) {
+                return chunk.split("").reverse().join("");
+            }).join("");
+
+            if (reversed == flag && username == 'admin') {
+                window.location.href = "found.html";
+            } else {
+                alert("Incorrect password. Please try again.");
+            }
+        });
+    </script>
+  </body>
+</html>

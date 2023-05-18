@@ -1,0 +1,2 @@
+Description: u18 хэрэглэгчийн нууц үгийг миний нууц үгийн жагсаалтаас олж эвдэнэ үү? format: HZU18{password}
+Chall file:https://drive.google.com/file/d/1iewhm2c8F8UJgsaYxsTteedhgXWb4Gn1/view

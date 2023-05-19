@@ -7,6 +7,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.tcp.routers.pyramid.rule=HostSNI(`*`)"
+      - "traefik.tcp.routers.pyramid.entrypoints=pyramid"
       - "traefik.tcp.routers.pyramid.service=pyramid-svc"
       - "traefik.tcp.services.pyramid-svc.loadbalancer.server.port=1337"
   honjvor:
@@ -15,6 +16,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.tcp.routers.honjvor.rule=HostSNI(`*`)"
+      - "traefik.tcp.routers.honjvor.entrypoints=honjvor"
       - "traefik.tcp.routers.honjvor.service=honjvor-svc"
       - "traefik.tcp.services.honjvor-svc.loadbalancer.server.port=7711"
 

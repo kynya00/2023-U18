@@ -9,7 +9,7 @@ services:
       - "traefik.tcp.routers.hidden-treasure.rule=HostSNI(`*`)"
       - "traefik.tcp.routers.hidden-treasure.entrypoints=hidden-treasure"
       - "traefik.tcp.routers.hidden-treasure.service=hidden-treasure-svc"
-      - "traefik.tcp.services.hidden-treasure-svc.loadbalancer.server.port=13331"
+      - "traefik.tcp.services.hidden-treasure-svc.loadbalancer.server.port=8000"
 
 networks:
   traefik_proxy:

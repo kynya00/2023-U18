@@ -10,22 +10,106 @@ services:
     networks: [traefik_proxy]
     labels:
       - "traefik.enable=true"
+      - "traefik.http.routers.massignment-http.entrypoints=web"
+      - "traefik.http.routers.massignment-http.rule=Host(`massignment.challenge.haruulzangi.mn`)"
+      - "traefik.http.routers.massignment-http.middlewares=massignment-https"
+      - "traefik.http.middlewares.massignment-https.redirectscheme.scheme=https"
+      - "traefik.http.routers.massignment.entrypoints=websecure"
       - "traefik.http.routers.massignment.rule=Host(`massignment.challenge.haruulzangi.mn`)"
-      - "traefik.http.routers.massignment.entrypoints=web,websecure"
+      - "traefik.http.routers.massignment.tls=true"
       - "traefik.http.routers.massignment.tls.certresolver=resolver"
-      - "traefik.http.routers.massignment.middlewares=massignment-https"
-      - "traefik.http.middlewares.massignment-https.redirectscheme.scheme=https" 
   warmup:
     image: ghcr.io/haruulzangi/warmup:latest
     networks: [traefik_proxy]
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.warmup.rule=Host(`warmup.challenge.haruulzangi.mn`)"
-      - "traefik.http.routers.warmup.entrypoints=web,websecure"
-      - "traefik.http.routers.warmup.tls.certresolver=resolver"
-      - "traefik.http.routers.warmup.middlewares=warmup-https"
+      - "traefik.http.routers.warmup-http.entrypoints=web"
+      - "traefik.http.routers.warmup-http.rule=Host(`warmup.challenge.haruulzangi.mn`)"
+      - "traefik.http.routers.warmup-http.middlewares=warmup-https"
       - "traefik.http.middlewares.warmup-https.redirectscheme.scheme=https"
-
+      - "traefik.http.routers.warmup.entrypoints=websecure"
+      - "traefik.http.routers.warmup.rule=Host(`warmup.challenge.haruulzangi.mn`)"
+      - "traefik.http.routers.warmup.tls=true"
+      - "traefik.http.routers.warmup.tls.certresolver=resolver"
+  ubuntu:
+    image: ghcr.io/haruulzangi/ubuntu-chall:latest
+    networks: [traefik_proxy]
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.ubuntu-http.entrypoints=web"
+      - "traefik.http.routers.ubuntu-http.rule=Host(`ubuntu.challenge.haruulzangi.mn`)"
+      - "traefik.http.routers.ubuntu-http.middlewares=ubuntu-https"
+      - "traefik.http.middlewares.ubuntu-https.redirectscheme.scheme=https"
+      - "traefik.http.routers.ubuntu.entrypoints=websecure"
+      - "traefik.http.routers.ubuntu.rule=Host(`ubuntu.challenge.haruulzangi.mn`)"
+      - "traefik.http.routers.ubuntu.tls=true"
+      - "traefik.http.routers.ubuntu.tls.certresolver=resolver"
+  hhe:
+    image: ghcr.io/haruulzangi/hhe:latest
+    networks: [traefik_proxy]
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.hhe-http.entrypoints=web"
+      - "traefik.http.routers.hhe-http.rule=Host(`hhe.challenge.haruulzangi.mn`)"
+      - "traefik.http.routers.hhe-http.middlewares=hhe-https"
+      - "traefik.http.middlewares.hhe-https.redirectscheme.scheme=https"
+      - "traefik.http.routers.hhe.entrypoints=websecure"
+      - "traefik.http.routers.hhe.rule=Host(`hhe.challenge.haruulzangi.mn`)"
+      - "traefik.http.routers.hhe.tls=true"
+      - "traefik.http.routers.hhe.tls.certresolver=resolver"
+  ping-1:
+    image: ghcr.io/haruulzangi/ping-1:latest
+    networks: [traefik_proxy]
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.ping-1-http.entrypoints=web"
+      - "traefik.http.routers.ping-1-http.rule=Host(`ping-1.challenge.haruulzangi.mn`)"
+      - "traefik.http.routers.ping-1-http.middlewares=ping-1-https"
+      - "traefik.http.middlewares.ping-1-https.redirectscheme.scheme=https"
+      - "traefik.http.routers.ping-1.entrypoints=websecure"
+      - "traefik.http.routers.ping-1.rule=Host(`ping-1.challenge.haruulzangi.mn`)"
+      - "traefik.http.routers.ping-1.tls=true"
+      - "traefik.http.routers.ping-1.tls.certresolver=resolver"
+  ping-2:
+    image: ghcr.io/haruulzangi/ping-2:latest
+    networks: [traefik_proxy]
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.ping-2-http.entrypoints=web"
+      - "traefik.http.routers.ping-2-http.rule=Host(`ping-2.challenge.haruulzangi.mn`)"
+      - "traefik.http.routers.ping-2-http.middlewares=ping-2-https"
+      - "traefik.http.middlewares.ping-2-https.redirectscheme.scheme=https"
+      - "traefik.http.routers.ping-2.entrypoints=websecure"
+      - "traefik.http.routers.ping-2.rule=Host(`ping-2.challenge.haruulzangi.mn`)"
+      - "traefik.http.routers.ping-2.tls=true"
+      - "traefik.http.routers.ping-2.tls.certresolver=resolver"  
+  pugchamp:
+    image: ghcr.io/haruulzangi/pugchamp:latest
+    networks: [traefik_proxy]
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.pugchamp-http.entrypoints=web"
+      - "traefik.http.routers.pugchamp-http.rule=Host(`pugchamp.challenge.haruulzangi.mn`)"
+      - "traefik.http.routers.pugchamp-http.middlewares=pugchamp-https"
+      - "traefik.http.middlewares.pugchamp-https.redirectscheme.scheme=https"
+      - "traefik.http.routers.pugchamp.entrypoints=websecure"
+      - "traefik.http.routers.pugchamp.rule=Host(`pugchamp.challenge.haruulzangi.mn`)"
+      - "traefik.http.routers.pugchamp.tls=true"
+      - "traefik.http.routers.pugchamp.tls.certresolver=resolver"
+  surfer:
+    image: ghcr.io/haruulzangi/surfer:latest
+    networks: [traefik_proxy]
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.surfer-http.entrypoints=web"
+      - "traefik.http.routers.surfer-http.rule=Host(`surfer.challenge.haruulzangi.mn`)"
+      - "traefik.http.routers.surfer-http.middlewares=surfer-https"
+      - "traefik.http.middlewares.surfer-https.redirectscheme.scheme=https"
+      - "traefik.http.routers.surfer.entrypoints=websecure"
+      - "traefik.http.routers.surfer.rule=Host(`surfer.challenge.haruulzangi.mn`)"
+      - "traefik.http.routers.surfer.tls=true"
+      - "traefik.http.routers.surfer.tls.certresolver=resolver"
+      
 networks:
   traefik_proxy:
     external: true

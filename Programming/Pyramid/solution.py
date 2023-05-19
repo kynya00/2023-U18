@@ -27,11 +27,13 @@ def max_path_sum(tri: list, n: int, dp: list):
  
   return dp[0][0]
 
+counter = 0
 while 1:
   data = io.recv()
   if b'HZ' in data:
     print(data)
     exit(0)
+  print(data.decode())
   data = data.split(b'Pyramid: \n')[1].split(b'\n\nPlease enter, Maximum path sum>')[0].decode()
   path_sum_str = str(calculate_max_path_sum(data))                     
   s: int = sum([int(path_sum_str[i:i+2]) for i in range(0, len(path_sum_str), 2)])

@@ -53,3 +53,48 @@ jobs:
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
       - name: Push image
         run: docker push ghcr.io/${{ github.repository_owner }}/ubuntu-chall:latest
+  build-hhe:
+    name: Build "hhe" task
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build image
+        run: docker build . --file Dockerfile --tag ghcr.io/${{ github.repository_owner }}/hhe:latest --label "runnumber=${GITHUB_RUN_ID}"
+        working-directory: Web/hhe
+      - name: Log in to registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
+      - name: Push image
+        run: docker push ghcr.io/${{ github.repository_owner }}/hhe:latest
+  build-ping-1:
+    name: Build "ping-1" task
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build image
+        run: docker build . --file Dockerfile --tag ghcr.io/${{ github.repository_owner }}/ping-1:latest --label "runnumber=${GITHUB_RUN_ID}"
+        working-directory: Web/ping-1
+      - name: Log in to registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
+      - name: Push image
+        run: docker push ghcr.io/${{ github.repository_owner }}/ping-1:latest
+  build-ping-2:
+    name: Build "ping-2" task
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build image
+        run: docker build . --file Dockerfile --tag ghcr.io/${{ github.repository_owner }}/ping-2:latest --label "runnumber=${GITHUB_RUN_ID}"
+        working-directory: Web/ping-2
+      - name: Log in to registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
+      - name: Push image
+        run: docker push ghcr.io/${{ github.repository_owner }}/ping-2:latest

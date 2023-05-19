@@ -1,5 +1,31 @@
+version: "3.8"
+
 services:
-  ubuntu:
-    build: .
-    ports:
-      - "9191:9191"
+  massignment:
+    image: ghcr.io/haruulzangi/massignment:latest
+    volumes:
+      - ./massignment/data:/data:rw
+    environment:
+      - DB_DIR=/data
+    networks: [traefik_proxy]
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.massignment.rule=Host(`massignment.challenge.haruulzangi.mn`)"
+      - "traefik.http.routers.massignment.entrypoints=web,websecure"
+      - "traefik.http.routers.massignment.tls.certresolver=resolver"
+      - "traefik.http.routers.massignment.middlewares=massignment-https"
+      - "traefik.http.middlewares.massignment-https.redirectscheme.scheme=https" 
+  warmup:
+    image: ghcr.io/haruulzangi/warmup:latest
+    networks: [traefik_proxy]
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.warmup.rule=Host(`warmup.challenge.haruulzangi.mn`)"
+      - "traefik.http.routers.warmup.entrypoints=web,websecure"
+      - "traefik.http.routers.warmup.tls.certresolver=resolver"
+      - "traefik.http.routers.warmup.middlewares=warmup-https"
+      - "traefik.http.middlewares.warmup-https.redirectscheme.scheme=https"
+
+networks:
+  traefik_proxy:
+    external: true

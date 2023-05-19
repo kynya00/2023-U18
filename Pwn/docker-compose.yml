@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:  
+  hidden-treasure:
+    image: ghcr.io/haruulzangi/hidden-treasure:latest
+    networks: [traefik_proxy]
+    labels:
+      - "traefik.enable=true"
+      - "traefik.tcp.routers.hidden-treasure.rule=HostSNI(`*`)"
+      - "traefik.tcp.routers.hidden-treasure.service=hidden-treasure-svc"
+      - "traefik.tcp.services.hidden-treasure-svc.loadbalancer.server.port=13331"
+
+networks:
+  traefik_proxy:
+    external: true

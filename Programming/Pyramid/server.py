@@ -66,8 +66,8 @@ def banner() -> None:
   62 26 75 
  34 66 64 52 
 32 27 75 66 55''')
-  print('Output: 332')
-  print('Explanation: 49 -> 69 -> 75 -> 64 -> 75\n')
+  print('Output: 334')
+  print('Explanation: 49 -> 69 -> 75 -> 66 -> 75\n')
 
 def run(prmd: Pyramid) -> None:
   banner()

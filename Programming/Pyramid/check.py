@@ -4,32 +4,62 @@ PYRAMID = '''    49
  34 66 64 52 
 32 27 75 66 55'''
 
-ROWS = 5
+class Node:
+  def __init__(self, data):
+      self.data = data
+      self.left = None
+      self.right = None
 
-def calculate_max_path_sum(triangle: str) -> int:
+def findMaxUtil(root):
+  if root is None:
+      return 0
+
+  l = findMaxUtil(root.left)
+  r = findMaxUtil(root.right)
+
+  max_single = max(max(l, r) + root.data, root.data)
+
+  max_top = max(max_single, l+r + root.data)
+
+  findMaxUtil.res = max(findMaxUtil.res, max_top)
+
+  return max_single
+
+def findMaxSum(root):
+  findMaxUtil.res = float("-inf")
+
+  findMaxUtil(root)
+  return findMaxUtil.res
+
+
+def convert_array(triangle: str) -> list:
   triangle_list: list = []
   for _ in triangle.split('\n'):
-    triangle_list.append([num for num in _.split(' ') if num != ''])
-  #triangle_list = triangle_list[:-1]
+    triangle_list.append([int(num) for num in _.split(' ') if num != ''])
+  return triangle_list
 
-  for _ in triangle_list:
-    while len(_) < ROWS:
-      _.append('0')
+def construct_binary_tree(arr):
+  if not arr:
+    return None
 
-  dp = [[-1 for j in range(ROWS)] for i in range(ROWS)]
-  return max_path_sum(triangle_list, ROWS, dp)
+  root = Node(arr[0][0])
+  queue = [(root, 0, 0)]
 
-def max_path_sum(tri: list, n: int, dp: list): 
-  for j in range(n):
-    dp[n-1][j] = tri[n-1][j]
- 
-  for i in range(n-2, -1, -1):
-    for j in range(i, -1, -1):
-      dp[i][j] = tri[i][j] + max(dp[i+1][j], dp[i+1][j+1])
- 
-  return dp[0][0]
+  while queue:
+    node, row, col = queue.pop(0)
 
-a = (calculate_max_path_sum(PYRAMID))
-path_sum_str = a
-s: int = sum([int(path_sum_str[i:i+2]) for i in range(0, len(path_sum_str), 2)])
-print(s)
+    if row + 1 < len(arr):
+      left_child = Node(arr[row + 1][col])
+      node.left = left_child
+      queue.append((left_child, row + 1, col))
+
+      right_child = Node(arr[row + 1][col + 1])
+      node.right = right_child
+      queue.append((right_child, row + 1, col + 1))
+
+  return root
+
+arr = convert_array(PYRAMID)
+root = construct_binary_tree(arr)
+
+print(findMaxUtil(root))

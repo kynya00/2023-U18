@@ -1,7 +1,7 @@
 #!/usr/bin/env python3 
 import random
 
-ROWS: int = 5
+ROWS: int = 10
 
 class Pyramid:
   def __init__(self) -> None:
@@ -45,7 +45,7 @@ class Pyramid:
       triangle = self.generate_triangle()
 
       max_path_sum: int = self.maximum_path_sum(self.convert_array(triangle))
-      print(max_path_sum)
+
       self.triangle[_] = {
         'max_path_sum': max_path_sum,
         'data': triangle

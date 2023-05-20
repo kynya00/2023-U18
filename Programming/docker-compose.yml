@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:  
+  pyramid:
+    image: ghcr.io/haruulzangi/pyramid:latest
+    networks: [traefik_proxy]
+    labels:
+      - "traefik.enable=true"
+      - "traefik.tcp.routers.pyramid.rule=HostSNI(`*`)"
+      - "traefik.tcp.routers.pyramid.entrypoints=pyramid"
+      - "traefik.tcp.routers.pyramid.service=pyramid-svc"
+      - "traefik.tcp.services.pyramid-svc.loadbalancer.server.port=8001"
+  honjvor:
+    image: ghcr.io/haruulzangi/honjvor:latest
+    networks: [traefik_proxy]
+    labels:
+      - "traefik.enable=true"
+      - "traefik.tcp.routers.honjvor.rule=HostSNI(`*`)"
+      - "traefik.tcp.routers.honjvor.entrypoints=honjvor"
+      - "traefik.tcp.routers.honjvor.service=honjvor-svc"
+      - "traefik.tcp.services.honjvor-svc.loadbalancer.server.port=8002"
+
+networks:
+  traefik_proxy:
+    external: true

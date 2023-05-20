@@ -1,0 +1,52 @@
+name: deploy-tcp
+on:
+  push:
+    branches:
+      - round-1
+
+jobs:
+  build-hidden-treasure:
+    name: Build "hidden-treasure" task
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build image
+        run: docker build . --file Dockerfile --tag ghcr.io/${{ github.repository_owner }}/hidden-treasure:latest --label "runnumber=${GITHUB_RUN_ID}"
+        working-directory: Pwn/hidden-treasure
+      - name: Log in to registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
+      - name: Push image
+        run: docker push ghcr.io/${{ github.repository_owner }}/hidden-treasure:latest
+  build-pyramid:
+    name: Build "Pyramid" task
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build image
+        run: docker build . --file Dockerfile --tag ghcr.io/${{ github.repository_owner }}/pyramid:latest --label "runnumber=${GITHUB_RUN_ID}"
+        working-directory: Programming/Pyramid
+      - name: Log in to registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
+      - name: Push image
+        run: docker push ghcr.io/${{ github.repository_owner }}/pyramid:latest
+  build-honjvor:
+    name: Build "honjvor" task
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build image
+        run: docker build . --file Dockerfile --tag ghcr.io/${{ github.repository_owner }}/honjvor:latest --label "runnumber=${GITHUB_RUN_ID}"
+        working-directory: Programming/honjvor
+      - name: Log in to registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
+      - name: Push image
+        run: docker push ghcr.io/${{ github.repository_owner }}/honjvor:latest

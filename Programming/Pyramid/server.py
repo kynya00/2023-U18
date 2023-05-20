@@ -1,7 +1,7 @@
 #!/usr/bin/env python3 
 import random
 
-ROWS: int = 30
+ROWS: int = 5
 
 class Pyramid:
   def __init__(self) -> None:
@@ -17,36 +17,35 @@ class Pyramid:
       retdata += '\n'
     return retdata
 
-  def calculate_max_path_sum(self, triangle: str) -> int:
+  def maximum_path_sum(self, pyramid):
+    def dfs(row, col, current_sum):
+      if row == len(pyramid) - 1:
+        return current_sum + int(pyramid[row][col])
+
+      left_sum = dfs(row + 1, col, current_sum + pyramid[row][col])
+      right_sum = dfs(row + 1, col + 1, current_sum + pyramid[row][col])
+
+      return max(left_sum, right_sum)
+
+    return dfs(0, 0, 0)
+
+  def convert_array(self, triangle: str) -> list:
     triangle_list: list = []
     for _ in triangle.split('\n'):
-      triangle_list.append([num for num in _.split(' ') if num != ''])
-    if triangle_list[-1] == []:
-      triangle_list = triangle_list[:-1]
-
+      triangle_list.append([int(num) for num in _.split(' ') if num != ''])
+    
     for _ in triangle_list:
       while len(_) < ROWS:
         _.append('0')
-
-    dp = [[-1 for j in range(ROWS)] for i in range(ROWS)]
-    return self.max_path_sum(triangle_list, ROWS, dp)
-
-  def max_path_sum(self, tri: list, n: int, dp: list): 
-    for j in range(n):
-      dp[n-1][j] = tri[n-1][j]
- 
-    for i in range(n-2, -1, -1):
-      for j in range(i, -1, -1):
-        dp[i][j] = tri[i][j] + max(dp[i+1][j], dp[i+1][j+1])
- 
-    return dp[0][0] 
+    
+    return triangle_list[:-1]
 
   def make_triangle_list(self, count: int) -> None:
     for _ in range(0, count):
       triangle = self.generate_triangle()
-      path_sum_str = str(self.calculate_max_path_sum(triangle))
-      max_path_sum: int = sum([int(path_sum_str[i:i+2]) for i in range(0, len(path_sum_str), 2)])
 
+      max_path_sum: int = self.maximum_path_sum(self.convert_array(triangle))
+      print(max_path_sum)
       self.triangle[_] = {
         'max_path_sum': max_path_sum,
         'data': triangle
@@ -84,6 +83,6 @@ def run(prmd: Pyramid) -> None:
 
 if __name__ == '__main__':
   prmd = Pyramid()
-  prmd.make_triangle_list(100)
+  prmd.make_triangle_list(500)
 
   run(prmd)

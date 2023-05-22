@@ -1,0 +1,15 @@
+version: "3.8"
+services:
+  mathbot:
+    image: ghcr.io/haruulzangi/mathbot:latest
+    environment:
+      BOT_TOKEN_FILE: /run/secrets/mathbot_token
+    secrets:
+      - mathbot_token
+    networks: [traefik_proxy]
+secrets:
+  mathbot_token:
+    file: ./token.secret
+networks:
+  traefik_proxy:
+    external: true

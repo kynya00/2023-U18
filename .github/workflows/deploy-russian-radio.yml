@@ -1,0 +1,21 @@
+name: deploy-russian-radio
+on:
+  push:
+    paths:
+      - 'web/russian-radio/**'
+jobs:
+  build-russian-radio:
+    name: Build "Russian Radio" task
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build image
+        run: docker build . --file Dockerfile --tag ghcr.io/${{ github.repository_owner }}/russian-radio:latest --label "runnumber=${GITHUB_RUN_ID}"
+        working-directory: web/russian-radio
+      - name: Log in to registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
+      - name: Push image
+        run: docker push ghcr.io/${{ github.repository_owner }}/russian-radio:latest

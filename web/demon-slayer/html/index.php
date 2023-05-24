@@ -1,7 +1,7 @@
 <?php
     session_start();
     $_SESSION['status']=null;
-    $flag="flag{xyi}";
+    $flag="HZU18{hell0_fr0m_russian_d3m0nz_TJfDp}";
     try {
         if (isset($_GET['username']) && isset($_GET['password'])) {
             if (strcmp($_GET['username'], $flag)==0 && strcmp($_GET['password'], $flag)==0)

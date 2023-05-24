@@ -13,6 +13,19 @@ services:
       - "traefik.http.routers.russian-radio.rule=Host(`russian-radio.challenge.haruulzangi.mn`)"
       - "traefik.http.routers.russian-radio.tls=true"
       - "traefik.http.routers.russian-radio.tls.certresolver=resolver"
+  demon-slayer:
+    image: ghcr.io/haruulzangi/demon-slayer:latest
+    networks: [traefik_proxy]
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.demon-slayer-http.entrypoints=web"
+      - "traefik.http.routers.demon-slayer-http.rule=Host(`demon-slayer.challenge.haruulzangi.mn`)"
+      - "traefik.http.routers.demon-slayer-http.middlewares=demon-slayer-https"
+      - "traefik.http.middlewares.demon-slayer-https.redirectscheme.scheme=https"
+      - "traefik.http.routers.demon-slayer.entrypoints=websecure"
+      - "traefik.http.routers.demon-slayer.rule=Host(`demon-slayer.challenge.haruulzangi.mn`)"
+      - "traefik.http.routers.demon-slayer.tls=true"
+      - "traefik.http.routers.demon-slayer.tls.certresolver=resolver"
 networks:
   traefik_proxy:
     external: true

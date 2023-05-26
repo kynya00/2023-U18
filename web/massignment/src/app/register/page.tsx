@@ -1,12 +1,35 @@
 "use client";
+import { useState } from "react";
 import { Button, Label, TextInput } from "flowbite-react";
 
 import { register } from "./actions";
 
 export default function RegisterPage() {
+  const [error, setError] = useState<string | null>(null);
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <form className="flex flex-col gap-4" action={register}>
+      <form
+        className="flex flex-col gap-4"
+        action={async (formData: FormData) => {
+          const { error } = await register(formData);
+          switch (error) {
+            case "internal":
+              setError("Something went wrong :(");
+              break;
+            case "user_already_exists":
+              setError("User already exists.");
+              break;
+          }
+        }}
+      >
+        {error && (
+          <div
+            className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 max-w-5xl"
+            role="alert"
+          >
+            <span className="break-all">{error}</span>
+          </div>
+        )}
         <div>
           <div className="mb-2 block">
             <Label htmlFor="username" value="Username" />

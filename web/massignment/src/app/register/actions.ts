@@ -16,13 +16,23 @@ export async function register(formData: FormData) {
     Object.fromEntries(Array.from(formData.entries()))
   );
 
-  const db = await getDB();
-  await db.run(
-    "INSERT INTO users (id, username, password, role) VALUES (?, ?, ?, ?)",
-    nanoid(32),
-    userData.username,
-    await argon2.hash(userData.password),
-    userData.role
-  );
-  redirect("/");
+  try {
+    const db = await getDB();
+    await db.run(
+      "INSERT INTO users (id, username, password, role) VALUES (?, ?, ?, ?)",
+      nanoid(32),
+      userData.username,
+      await argon2.hash(userData.password),
+      userData.role
+    );
+    redirect("/");
+  } catch (e) {
+    const maybeError = z.object({ code: z.string() }).safeParse(e);
+    if (maybeError.success) {
+      if (maybeError.data.code === "SQLITE_CONSTRAINT") {
+        return { error: "user_already_exists" };
+      }
+    }
+    return { error: "internal" };
+  }
 }

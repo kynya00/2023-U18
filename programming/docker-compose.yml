@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:  
+  reverser:
+    image: ghcr.io/haruulzangi/reverser:latest
+    networks: [traefik_proxy]
+    labels:
+      - "traefik.enable=true"
+      - "traefik.tcp.routers.reverser.rule=HostSNI(`*`)"
+      - "traefik.tcp.routers.reverser.entrypoints=reverser"
+      - "traefik.tcp.routers.reverser.service=reverser-svc"
+      - "traefik.tcp.services.reverser-svc.loadbalancer.server.port=5000"
+
+networks:
+  traefik_proxy:
+    external: true

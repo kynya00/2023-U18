@@ -21,6 +21,6 @@ RUN chown -R root:$USER /home/$USER
 RUN chmod -R 550 /home/$USER
 RUN chmod +r /home/$USER/flag.txt
 
-EXPOSE 13331
+EXPOSE 13331 
 
 CMD service xinetd start && sleep 2 && tail -f /var/log/xinetdlog

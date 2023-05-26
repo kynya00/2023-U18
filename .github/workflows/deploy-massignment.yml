@@ -2,7 +2,8 @@ name: deploy-web
 on:
   push:
     paths:
-      - "web/massigment/**"
+      - "web/massignment/**"
+      - ".github/workflows/deploy-massignment.yml"
 
 jobs:
   build-massignment:

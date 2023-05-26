@@ -10,7 +10,7 @@ services:
       - "traefik.tcp.routers.shuudanch.entrypoints=shuudanch"
       - "traefik.tcp.routers.shuudanch.service=shuudanch-svc"
       - "traefik.tcp.services.shuudanch-svc.loadbalancer.server.port=13331"
-  wish:
+  wish: 
     image: ghcr.io/haruulzangi/wish:latest
     networks: [traefik_proxy]
     labels:

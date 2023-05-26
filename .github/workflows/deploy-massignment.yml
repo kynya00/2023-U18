@@ -1,0 +1,25 @@
+name: deploy-web
+on:
+  push:
+    paths:
+      - "web/massigment/**"
+
+jobs:
+  build-massignment:
+    name: Build "Mass Assignment" task
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build dotenv file
+        run: echo FLAG=${{ vars.WEB_MASSIGNMENT_FLAG }} > .env
+        working-directory: web/massignment
+      - name: Build image
+        run: docker build . --file Dockerfile --tag ghcr.io/${{ github.repository_owner }}/massignment:latest --label "runnumber=${GITHUB_RUN_ID}"
+        working-directory: web/massignment
+      - name: Log in to registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
+      - name: Push image
+        run: docker push ghcr.io/${{ github.repository_owner }}/massignment:latest

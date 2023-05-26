@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:  
+  shuudanch:
+    image: ghcr.io/haruulzangi/shuudanch:latest
+    networks: [traefik_proxy]
+    labels:
+      - "traefik.enable=true"
+      - "traefik.tcp.routers.shuudanch.rule=HostSNI(`*`)"
+      - "traefik.tcp.routers.shuudanch.entrypoints=shuudanch"
+      - "traefik.tcp.routers.shuudanch.service=shuudanch-svc"
+      - "traefik.tcp.services.shuudanch-svc.loadbalancer.server.port=13331"
+  wish:
+    image: ghcr.io/haruulzangi/wish:latest
+    networks: [traefik_proxy]
+    labels:
+      - "traefik.enable=true"
+      - "traefik.tcp.routers.wish.rule=HostSNI(`*`)"
+      - "traefik.tcp.routers.wish.entrypoints=wish"
+      - "traefik.tcp.routers.wish.service=wish-svc"
+      - "traefik.tcp.services.wish-svc.loadbalancer.server.port=13332"
+
+networks:
+  traefik_proxy:
+    external: true

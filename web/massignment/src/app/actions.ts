@@ -32,7 +32,7 @@ export async function login(formData: FormData) {
         request.username
       );
     }
-    redirect(`/dashboard/${user.id}`);
+    return { error: null, id: user.id };
   } catch {
     return { error: "internal" };
   }

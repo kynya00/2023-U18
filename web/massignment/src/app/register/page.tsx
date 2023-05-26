@@ -1,11 +1,13 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Button, Label, TextInput } from "flowbite-react";
 
 import { register } from "./actions";
 
 export default function RegisterPage() {
   const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <form
@@ -18,6 +20,9 @@ export default function RegisterPage() {
               break;
             case "user_already_exists":
               setError("User already exists.");
+              break;
+            case null:
+              router.replace("/");
               break;
           }
         }}

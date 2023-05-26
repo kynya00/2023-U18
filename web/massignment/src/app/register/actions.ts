@@ -25,7 +25,7 @@ export async function register(formData: FormData) {
       await argon2.hash(userData.password),
       userData.role
     );
-    redirect("/");
+    return { error: null };
   } catch (e) {
     const maybeError = z.object({ code: z.string() }).safeParse(e);
     if (maybeError.success) {

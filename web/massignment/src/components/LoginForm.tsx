@@ -1,23 +1,28 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Button, Label, TextInput } from "flowbite-react";
 
 import { login } from "@/app/actions";
 
 export function LoginForm() {
+  const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   return (
     <form
       className="flex flex-col gap-4"
       action={async (formData: FormData) => {
-        const { error } = await login(formData);
+        const { error, ...data } = await login(formData);
         switch (error) {
           case "internal":
             setError("Something went wrong :(");
             break;
           case "forbidden":
             setError("Incorrect username or password");
+            break;
+          case null:
+            router.replace(`/dashboard/${data.id}`);
             break;
         }
       }}

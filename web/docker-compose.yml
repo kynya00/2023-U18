@@ -43,6 +43,47 @@ services:
       - "traefik.http.routers.demon-slayer.rule=Host(`demon-slayer.challenge.haruulzangi.mn`)"
       - "traefik.http.routers.demon-slayer.tls=true"
       - "traefik.http.routers.demon-slayer.tls.certresolver=resolver"
+  header:
+    image: ghcr.io/haruulzangi/header:latest
+    networks: [traefik_proxy]
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.header-http.entrypoints=web"
+      - "traefik.http.routers.header-http.rule=Host(`header.challenge.haruulzangi.mn`)"
+      - "traefik.http.routers.header-http.middlewares=header-https"
+      - "traefik.http.middlewares.header-https.redirectscheme.scheme=https"
+      - "traefik.http.routers.header.entrypoints=websecure"
+      - "traefik.http.routers.header.rule=Host(`header.challenge.haruulzangi.mn`)"
+      - "traefik.http.routers.header.tls=true"
+      - "traefik.http.routers.header.tls.certresolver=resolver"
+  post:
+    image: ghcr.io/haruulzangi/post:latest
+    networks: [traefik_proxy]
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.post-http.entrypoints=web"
+      - "traefik.http.routers.post-http.rule=Host(`post.challenge.haruulzangi.mn`)"
+      - "traefik.http.routers.post-http.middlewares=post-https"
+      - "traefik.http.middlewares.post-https.redirectscheme.scheme=https"
+      - "traefik.http.routers.post.entrypoints=websecure"
+      - "traefik.http.routers.post.rule=Host(`post.challenge.haruulzangi.mn`)"
+      - "traefik.http.routers.post.tls=true"
+      - "traefik.http.routers.post.tls.certresolver=resolver"
+  proto:
+    image: ghcr.io/haruulzangi/proto:latest
+    networks: [traefik_proxy]
+    restart: "always"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.proto-http.entrypoints=web"
+      - "traefik.http.routers.proto-http.rule=Host(`proto.challenge.haruulzangi.mn`)"
+      - "traefik.http.routers.proto-http.middlewares=proto-https"
+      - "traefik.http.middlewares.proto-https.redirectscheme.scheme=https"
+      - "traefik.http.routers.proto.entrypoints=websecure"
+      - "traefik.http.routers.proto.rule=Host(`proto.challenge.haruulzangi.mn`)"
+      - "traefik.http.routers.proto.tls=true"
+      - "traefik.http.routers.proto.tls.certresolver=resolver"
 networks:
   traefik_proxy:
     external: true
+    

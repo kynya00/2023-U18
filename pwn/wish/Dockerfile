@@ -23,6 +23,6 @@ RUN chmod -R 550 /home/$USER
 RUN chmod +r /home/$USER/flag.txt
 RUN chmod +r /secret.txt
 
-EXPOSE 13332
+EXPOSE 13332 
 
 CMD service xinetd start && sleep 2 && tail -f /var/log/xinetdlog

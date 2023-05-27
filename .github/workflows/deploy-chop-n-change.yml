@@ -1,0 +1,21 @@
+name: deploy-chop-n-change
+on:
+  push:
+    paths:
+      - 'Web/chop-n-change/**'
+jobs:
+  build-chop-n-change:
+    name: Build "Chop and Change" task
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build image
+        run: docker build . --file Dockerfile --tag ghcr.io/${{ github.repository_owner }}/chop-n-change:latest --label "runnumber=${GITHUB_RUN_ID}"
+        working-directory: Web/chop-n-change
+      - name: Log in to registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
+      - name: Push image
+        run: docker push ghcr.io/${{ github.repository_owner }}/chop-n-change:latest

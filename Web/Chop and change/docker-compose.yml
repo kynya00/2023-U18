@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+  chop-n-change:
+    image: ghcr.io/haruulzangi/chop-n-change:latest
+    networks: [traefik_proxy]
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.chop-n-change-http.entrypoints=web"
+      - "traefik.http.routers.chop-n-change-http.rule=Host(`chop-n-change.challenge.haruulzangi.mn`)"
+      - "traefik.http.routers.chop-n-change-http.middlewares=chop-n-change-https"
+      - "traefik.http.middlewares.chop-n-change-https.redirectscheme.scheme=https"
+      - "traefik.http.routers.chop-n-change.entrypoints=websecure"
+      - "traefik.http.routers.chop-n-change.rule=Host(`chop-n-change.challenge.haruulzangi.mn`)"
+      - "traefik.http.routers.chop-n-change.tls=true"
+      - "traefik.http.routers.chop-n-change.tls.certresolver=resolver"
+      
+networks:
+  traefik_proxy:
+    external: true

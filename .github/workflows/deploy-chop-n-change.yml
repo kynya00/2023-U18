@@ -2,7 +2,7 @@ name: deploy-chop-n-change
 on:
   push:
     paths:
-      - 'Web/chop-n-change/**'
+      - 'Web/Chop and change/**'
 jobs:
   build-chop-n-change:
     name: Build "Chop and Change" task

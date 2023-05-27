@@ -45,7 +45,7 @@ def connectionHandler(conn):
     conn.send(f"Try again.".encode())
 
 def main():
-    port = int(os.environ.get("PORT", "5002"))
+    port = int(os.environ.get("PORT", "5000"))
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.bind(("0.0.0.0", port))
         s.listen()

@@ -41,7 +41,7 @@ int main() {
 
   puts("Please tell me, your wish > ");
   scanf("%64s", &input);
-  puts(secret);
+
   if (strcmp(input, secret) == 0) {
     puts("Maybe i can give u shell ...");
     system("/bin/sh");
